@@ -1,13 +1,13 @@
 # insight
 
-Web Insight: Web information insight
+Web Insight: Web information insight from some app
 
 ## Installation
 
 ```bash
->> pip install uv
->> uv sync
->> uv run main.py --github_token github_pat_xxx --repo_name taseikyo/insight --issue_label_name douyin
+> pip install uv
+> uv sync
+> uv run main.py --github_token github_pat_xxx --repo_name taseikyo/insight --issue_label_name douyin
 ```
 
 ## Web Insight
