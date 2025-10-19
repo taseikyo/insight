@@ -1,0 +1,33 @@
+name: Update README
+
+on:
+  issue_comment:
+    types: [created, edited]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Parse Issues
+        run: |
+          pip install uv
+          uv sync
+          uv run main.py --github_token ${{ secrets.G_T }} --repo_name ${{ github.repository }} --issue_label_name '${{ github.event.issue.labels[0].name }}'
+      - name: Commit and Push
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email '${GITHUB_ACTOR}@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+
+          git add .
+          git commit -m "[GitHubBot] Update Readme" || true
+          git push origin HEAD:$GITHUB_REF || true
+
