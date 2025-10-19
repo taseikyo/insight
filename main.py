@@ -6,12 +6,11 @@
 # @Version : 3.12.3
 
 import argparse
-import re
+
 import pytz
 
 from src.github_utils import get_issue
 from src.logger_utls import Logger
-
 
 BASE_HEADER = "| ID | Crteate / Update | Content | \n| ---- | ---- | ---- | \n"
 SH_TZ = pytz.timezone("Asia/Shanghai")
