@@ -75,13 +75,13 @@ def main():
             uniq_ids.add(comment.id)
             # 替换评论所有回车为空格
             body = " ".join(comment.body.splitlines())
-            logger.info(
-                f"  Comment User {comment.user.login}, Time: {comment.created_at.astimezone(SH_TZ).strftime('%Y-%m-%d %H:%M:%S')}"
-            )
+            ct = comment.created_at.astimezone(SH_TZ).strftime("%Y-%m-%d %H:%M:%S")
+            ut = comment.updated_at.astimezone(SH_TZ).strftime("%Y-%m-%d %H:%M:%S")
+            logger.info(f"  Comment User {comment.user.login}, Create Time: {ct}")
             logger.info(f"  Comment ID: {comment.id}")
             logger.info(f"  Comment Body: {body}")
 
-            line = f"| [{comment.id}]({comment.html_url}) | {comment.created_at.astimezone(SH_TZ).strftime('%Y-%m-%d %H:%M:%S')} / {comment.updated_at.astimezone(SH_TZ).strftime('%Y-%m-%d %H:%M:%S')} |<pre>{body}</pre> | \n"
+            line = f"| [{comment.id}]({comment.html_url}) | {ct} / {ut} |<pre>{body}</pre> | \n"
             lines.append(line)
             logger.info(line)
 
