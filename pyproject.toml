@@ -1,0 +1,11 @@
+[project]
+name = "insight"
+version = "0.1.0"
+description = "Web archive information"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "loguru>=0.7.3",
+    "pygithub>=2.8.1",
+    "pytz>=2025.2",
+]
