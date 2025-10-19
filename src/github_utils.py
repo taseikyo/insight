@@ -11,6 +11,7 @@ from github.Issue import Issue
 from github.IssueComment import IssueComment
 
 from . import logger_utls
+from . import parser
 
 LABEL_DICT = {
     "alipay": {
@@ -23,7 +24,7 @@ LABEL_DICT = {
         "parser": None,
     },
     "douyin": {
-        "parser": None,
+        "parser": parser.douyin_parser,
     },
 }
 

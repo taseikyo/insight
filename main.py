@@ -10,6 +10,7 @@ import argparse
 import pytz
 
 from src.github_utils import get_issue
+from src.github_utils import LABEL_DICT
 from src.logger_utls import Logger
 
 BASE_HEADER = "| ID | Crteate / Update | Content | \n| ---- | ---- | ---- | \n"
@@ -64,12 +65,16 @@ def main():
 
     lines = []
     uniq_ids = set()
+    uniq_issue_ids = set()
     for issue in issues:
+        if issue.id in uniq_issue_ids:
+            continue
+        uniq_issue_ids.add(issue.id)
         label = issue.labels[0].name if issue.labels else ""
         logger.info(
             f"Issue Title: {issue.title}, Number: {issue.number}, Label: {label}, Counts: {issue.comments}"
         )
-        for comment in issue.get_comments():
+        for comment in reversed(issue.get_comments()):
             if comment.id in uniq_ids:
                 continue
             uniq_ids.add(comment.id)
@@ -81,7 +86,11 @@ def main():
             logger.info(f"  Comment ID: {comment.id}")
             logger.info(f"  Comment Body: {body}")
 
-            line = f"| [{comment.id}]({comment.html_url}) | {ct} / {ut} |<pre>{body}</pre> | \n"
+            parser_func = LABEL_DICT[label].get("parser")
+            if parser_func:
+                body = parser_func(logger, body)
+
+            line = f"| [{comment.id}]({comment.html_url}) | {ct} /<br /> {ut} |<pre>{body}</pre> | \n"
             lines.append(line)
             logger.info(line)
 
