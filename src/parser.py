@@ -6,7 +6,7 @@
 
 from . import logger_utls
 
-DOUYIN_TEMPLATE = "<table max-width='600px'><tr><th>投稿</th><th>{Link}</th></tr><tr><td>类型</td><td>{Type}</td></tr><tr><th>评论者</th><td>{User}</td></tr><tr><th>评论头像</th><td>{Avatar}</td></tr><tr><th>评论内容</th><td>{Content}</td></tr></table>"
+DOUYIN_TEMPLATE = "<table><tr><th>投稿</th><th>{Link}</th></tr><tr><td>类型</td><td>{Type}</td></tr><tr><th>评论者</th><td>{User}</td></tr><tr><th>评论头像</th><td>{Avatar}</td></tr><tr><th>评论内容</th><td>{Content}</td></tr></table>"
 
 def douyin_parser(logger: logger_utls.Logger, comment_body: str) -> str:
     """
